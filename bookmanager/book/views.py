@@ -12,4 +12,15 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("ok")
+    # return HttpResponse("ok")
+
+    # 参数 request, template_name, context=None
+    # request 请求
+    # template_name 模板名字
+    # context=None
+
+    # 模拟数据查询
+    context = {
+        "name": "小龙女"
+    }
+    return render(request, 'book/index.html', context=context)
