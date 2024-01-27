@@ -118,4 +118,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# http://127.0.0.1:8000/static/1.png
 STATIC_URL = '/static/'
+# 告知系统，图片在哪里
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/images/')
+]
