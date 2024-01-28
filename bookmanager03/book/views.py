@@ -21,6 +21,8 @@ def shop(request, shop_id, city_id):
     # order = query_params.get('order')
     # print(order)
 
+    # http://127.0.0.1:8000/123/125/?order=readcount
+    # http://127.0.0.1:8000/123/125/?order=readcount&order=commentcount
     # <QueryDict: {'order': ['readcount']}>
     # QueryDict 具有字典的特性
     # 还具有 一键多值
