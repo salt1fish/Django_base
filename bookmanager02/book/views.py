@@ -146,3 +146,46 @@ BookInfo.objects.filter(Q(read_count__gt=20) | Q(id__lt=3))
 # not 非 语法：模型类名.objects.filter(~Q(属性名__运算符=值))
 # 查询编号不等于3的图书
 BookInfo.objects.filter(~Q(id__exact=3))
+
+######################聚合函数###########################
+from django.db.models import Max, Min, Avg, Count, Sum
+# 模型类名.objects.aggregate(Xxx('字段名'))
+
+# 查询图书的总阅读量
+BookInfo.objects.aggregate(Sum('read_count'))
+
+######################排序函数###########################
+BookInfo.objects.all().order_by('read_count')  # 默认升序
+BookInfo.objects.all().order_by('-read_count')  # 降序
+
+
+######################关联查询###########################
+# 查询书籍为1的所有人物信息
+book = BookInfo.objects.get(id=1)
+book.peopleinfo_set.all()
+
+# 查询人物为1的书籍信息
+person = PeopleInfo.objects.get(id=18)
+person.book
+person.book.name
+person.book.read_count
+
+
+######################关联过滤查询###########################
+# 语法形式
+# 一对多模型
+# 查询1的数据，条件为 n
+# 模型类名.objects.(关联模型类名小写__字段名__运算符=值)
+
+# 查询图书，要求图书人物为"郭靖"
+BookInfo.objects.filter(peopleinfo__name__exact="郭靖")
+BookInfo.objects.filter(peopleinfo__name="郭靖")
+# 查询图书，要求图书中人物的描述包含"八"
+BookInfo.objects.filter(peopleinfo__description__contains="八")
+
+
+# 查询书名为“天龙八部”的所有人物
+PeopleInfo.objects.filter(book__name="天龙八部")
+PeopleInfo.objects.filter(book__name__exact="天龙八部")
+# 查询图书阅读量大于30的所有人物
+PeopleInfo.objects.filter(book__read_count__gt=30)
