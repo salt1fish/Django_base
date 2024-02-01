@@ -87,6 +87,31 @@ def method(request):
     print(request.method)
     return HttpResponse("method")
 
+
+def response(request):
+    # HTTP status code must be an integer from 100 to 599.
+    # return HttpResponse("res", status=666)
+    # 1xx
+    # 2xx
+    #   200 成功
+    # 3xx
+    # 4xx 请求有问题
+    #   404 找不到页面 路由有问题
+    #   403 禁止访问 权限问题
+    # 5xx 服务器错误
+    # 可以使用django.http.HttpResponse来构造响应对象。
+    # HttpResponse(content=响应体, content_type=响应体数据类型, status=状态码)
+    res = HttpResponse("res", status=200)
+    # 也可通过HttpResponse对象属性来设置响应体、响应体数据类型、状态码：
+    #   content：表示返回的内容。
+    #   status_code：返回的HTTP响应状态码。
+    res.status_code = 300
+    # 响应头可以直接将HttpResponse对象当做字典进行响应头键值对的设置：
+    res["name"] = "zhy"
+
+    return res
+
+
 ###############查询字符串#####################
 """
 查询字符串
