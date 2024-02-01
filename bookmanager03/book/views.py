@@ -37,6 +37,13 @@ def shop(request, shop_id, city_id):
     content = f"城市id：{city_id}---商店id：{shop_id}---query_params：{order}"
     return HttpResponse(content)
 
+
+def register(request):
+    data_post = request.POST
+    print(data_post)
+    return HttpResponse("ok")
+
+
 ###############查询字符串#####################
 """
 查询字符串
