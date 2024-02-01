@@ -219,6 +219,12 @@ def set_session(request):
     # flush 是删除所有的数据，包括key
     # request.session.flush()
 
+    # 如果value是一个整数，session将在value秒没有活动后过期。
+    # 如果value为0，那么用户session的Cookie将在用户的浏览器关闭时过期。
+    # 如果value为None，那么session有效期将采用系统默认值， 默认为两周，可以通过在settings.py中设置SESSION_COOKIE_AGE来设置全局默认值。
+    request.session.set_expiry(60)
+
+
     return HttpResponse("set_session")
 
 
