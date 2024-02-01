@@ -70,6 +70,23 @@ def json(request):
 
     return HttpResponse("json")
 
+
+def method(request):
+    """
+    method：一个字符串，表示请求使用的HTTP方法，常用值包括：'GET'、'POST'。
+    user：请求的用户对象。
+    path：一个字符串，表示请求的页面的完整路径，不包含域名和参数部分。
+    encoding：一个字符串，表示提交的数据的编码方式。
+            如果为None则表示使用浏览器的默认设置，一般为utf-8。
+            这个属性是可写的，可以通过修改它来修改访问表单数据使用的编码，接下来对属性的任何访问将使用新的encoding值。
+    FILES：一个类似于字典的对象，包含所有的上传文件。
+    :param request:
+    :return:
+    """
+    # 一个字符串，表示请求使用的HTTP方法，常用值包括：'GET'、'POST'
+    print(request.method)
+    return HttpResponse("method")
+
 ###############查询字符串#####################
 """
 查询字符串
