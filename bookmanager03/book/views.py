@@ -188,3 +188,40 @@ def get_cookie(request):
     # print(request.COOKIES)
     username = request.COOKIES.get("name")
     return HttpResponse(username)
+
+
+################################
+# session 是保存在服务器端 -- 数据相对安全
+# session 需要依赖于cookie
+"""
+第一次请求
+http://127.0.0.1:8000/set_session/?username=zhy 我们在访问端设置session信息
+服务器同时会生成一个sessionid的cookie信息
+浏览器接收到这个信息之后，会把cookie数据保存起来
+
+第二次及其之后的请求 都会携带这个sessionid。服务器会验证这个sessionid。验证没有问题
+会读取相关数据。实现业务逻辑
+"""
+
+
+def set_session(request):
+    # 1. 模拟 获取用户信息
+    username = request.GET.get("username")
+    # 2. 设置session信息
+    # 假如 我们通过模型查询 查询到了 用户信息
+    user_id = 1
+    request.session["user_id"] = user_id
+    request.session["username"] = username
+
+    return HttpResponse("set_session")
+
+
+def get_session(request):
+    # user_id = request.session["user_id"]
+    # username = request.session["username"]
+    # 防止没有匹配到sessionid时报异常
+    user_id = request.session.get("user_id")
+    username = request.session.get("username")
+
+    content = f"{user_id},{username}"
+    return HttpResponse(content)
