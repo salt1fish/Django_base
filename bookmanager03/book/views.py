@@ -170,10 +170,17 @@ http://127.0.0.1:8000/set_cookie/?username=zhy&password=123
 def set_cookie(request):
     # 1. 获取查询字符串数据
     username = request.GET.get("username")
+    password = request.GET.get("password")
     # 2. 服务器设置cookie信息
     # 通过 响应对象.set_cookie 方法
     res = HttpResponse("cookie")
-    res.set_cookie("name", username)
+    # key, value = "
+    # max_age 是一个秒数 从响应开始计数的一个秒数,默认过期时间是会话结束时（关闭浏览器）
+    res.set_cookie("name", username, max_age=60 * 60)
+    res.set_cookie("pwd", password)
+    # 删除cookie
+    res.delete_cookie("name")
+
     return res
 
 
