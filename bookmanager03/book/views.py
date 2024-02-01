@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from book.models import BookInfo
 
@@ -110,6 +110,39 @@ def response(request):
     res["name"] = "zhy"
 
     return res
+
+
+def json_res(request):
+    # 是HttpResponse的子类
+    # JSON --> dict
+    # dict --> JSON
+    info = {
+        "name": "zhy",
+        "address": "zg"
+    }
+    res1 = JsonResponse(data=info)
+    ###################################################
+    girl_friend = [
+        {
+            "name": "rose",
+            "address": "bj"
+        },
+        {
+            "name": "rose",
+            "address": "bj"
+        }
+    ]
+    # In order to allow non-dict objects to be serialized set the safe parameter to False.
+    res2 = JsonResponse(data=girl_friend)
+    # data 返回的响应数据 一般是字典类型
+    """
+    safe = True 是表示 我们的data 是字典数据
+    JsonResponse 可以把字典转换为json
+    safe = False
+    现在给了一个非字典数据，出了问题 我们自己负责
+    """
+    res3 = JsonResponse(data=girl_friend, safe=False)
+    return res3
 
 
 ###############查询字符串#####################

@@ -1,5 +1,5 @@
 from django.urls import path
-from book.views import create_book, shop, register, json, method, response
+from book.views import create_book, shop, register, json, method, response, json_res
 from django.urls import converters
 from django.urls import register_converter
 
@@ -33,6 +33,7 @@ urlpatterns = [
     path('json/', json),
     path('method/', method),
     path('res/', response),
+    path('json_res/', json_res),
 ]
 """
     from django.urls import converters
