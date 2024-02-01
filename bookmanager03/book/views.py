@@ -213,6 +213,12 @@ def set_session(request):
     request.session["user_id"] = user_id
     request.session["username"] = username
 
+    # clear 删除session里的数据，但是key有保留
+    # request.session.clear()
+
+    # flush 是删除所有的数据，包括key
+    # request.session.flush()
+
     return HttpResponse("set_session")
 
 
