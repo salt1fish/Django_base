@@ -64,6 +64,10 @@ def json(request):
     body_dict = json.loads(body_str)
     print(body_dict)
 
+    ###########请求头############
+    # 可以通过request.META属性获取请求头headers中的数据，request.META为字典类型
+    print(request.META)
+
     return HttpResponse("json")
 
 ###############查询字符串#####################
