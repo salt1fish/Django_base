@@ -13,6 +13,16 @@ def create_book(request):
     return HttpResponse("ok")
 
 
+###############查询字符串#####################
+"""
+查询字符串
+http://ip:port/path/path?key1=value1&key2=value2
+url 以 ? 分割为两部分
+? 前面为 请求路径
+? 后边为 查询字符串 查询字符串 类似于字典 key=value 多个数据用 & 拼接
+"""
+
+
 # 接收路径中的参数，参数名称不能错，参数位置可以改变
 def shop(request, shop_id, city_id):
     query_params = request.GET
@@ -145,11 +155,29 @@ def json_res(request):
     return res3
 
 
-###############查询字符串#####################
+##################Cookie和Session##########################
 """
-查询字符串
-http://ip:port/path/path?key1=value1&key2=value2
-url 以 ? 分割为两部分
-? 前面为 请求路径
-? 后边为 查询字符串 查询字符串 类似于字典 key=value 多个数据用 & 拼接
+第一次请求，携带 查询字符串
+http://127.0.0.1:8000/set_cookie/?username=zhy&password=123
+服务器接收到请求以后，获取username，服务器设置cookie信息，cookie信息包括 username
+浏览器接收到服务器的响应后，应该把cookie保存起来
+
+第二次及其之后的请求，我们访问http://127.0.0.1:8000 都会携带cookie信息。服务器就可以
+读取cookie信息，来判断用户身份
 """
+
+
+def set_cookie(request):
+    # 1. 获取查询字符串数据
+    username = request.GET.get("username")
+    # 2. 服务器设置cookie信息
+    # 通过 响应对象.set_cookie 方法
+    res = HttpResponse("cookie")
+    res.set_cookie("name", username)
+    return res
+
+
+def get_cookie(request):
+    # print(request.COOKIES)
+    username = request.COOKIES.get("name")
+    return HttpResponse(username)
